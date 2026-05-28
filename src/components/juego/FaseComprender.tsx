@@ -1,7 +1,8 @@
 // src/components/juego/FaseComprender.tsx
 'use client';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import { useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { DatoInteractivo } from '@/types/juego';
 import { Sparkles } from 'lucide-react';
 
@@ -22,20 +23,21 @@ export default function FaseComprender({
 
   useEffect(() => {
     if (todosDescubiertos) {
-      const timer = setTimeout(onCompletar, 1500);
+      const timer = setTimeout(onCompletar, 3000);
       return () => clearTimeout(timer);
     }
   }, [todosDescubiertos, onCompletar]);
 
   return (
     <div className="w-full max-w-2xl mx-auto">
-      {/* Escena interactiva */}
-      <div className="relative bg-gradient-to-b from-amber-50 to-orange-50 rounded-3xl p-8 min-h-[300px] border-2 border-amber-200 overflow-hidden">
-        <p className="text-center text-amber-700 font-semibold mb-4">
+      {/* Escena */}
+      <div className="relative bg-gradient-to-b from-amber-50 to-orange-50 rounded-3xl p-6 sm:p-8 border-2 border-amber-200">
+        <p className="text-center text-amber-700 font-semibold mb-6">
           ¡Toca los elementos importantes! 👆
         </p>
 
-        <div className="relative w-full h-[220px]">
+        {/* MÓVIL: columna vertical / DESKTOP: posiciones relativas en fila */}
+        <div className="flex flex-col sm:flex-row sm:justify-center sm:items-end sm:gap-8 sm:min-h-[180px]">
           {datos.map((dato) => {
             const isDescubierto = descubiertos.has(dato.id);
 
@@ -43,15 +45,9 @@ export default function FaseComprender({
               <motion.button
                 key={dato.id}
                 onClick={() => !isDescubierto && onDescubrir(dato.id)}
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                whileHover={!isDescubierto ? { scale: 1.2 } : {}}
-                whileTap={!isDescubierto ? { scale: 0.9 } : {}}
-                className="absolute transform -translate-x-1/2 -translate-y-1/2"
-                style={{
-                  left: `${dato.posicion.x}%`,
-                  top: `${dato.posicion.y}%`,
-                }}
+                whileHover={!isDescubierto ? { scale: 1.1 } : {}}
+                whileTap={!isDescubierto ? { scale: 0.95 } : {}}
+                className="relative flex flex-col items-center gap-2 mb-4 sm:mb-0"
               >
                 <motion.div
                   animate={
@@ -66,36 +62,40 @@ export default function FaseComprender({
                       : {}
                   }
                   transition={{ duration: 1.5, repeat: Infinity }}
-                  className={`text-5xl p-3 rounded-2xl transition-all ${
+                  className={`text-5xl p-4 rounded-2xl border-2 transition-all ${
                     isDescubierto
-                      ? 'bg-green-100 border-2 border-green-300'
-                      : 'bg-white/80 border-2 border-amber-300 cursor-pointer hover:bg-white'
+                      ? 'bg-green-100 border-green-300'
+                      : 'bg-white/80 border-amber-300 cursor-pointer hover:bg-white'
                   }`}
                 >
                   {dato.emoji}
                 </motion.div>
 
-                {/* Label al descubrir */}
+                {/* Label siempre visible debajo, no flotante */}
                 <AnimatePresence>
                   {isDescubierto && (
                     <motion.div
-                      initial={{ opacity: 0, y: 10, scale: 0.8 }}
+                      initial={{ opacity: 0, y: -5, scale: 0.9 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
-                      className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 whitespace-nowrap"
+                      className="bg-green-500 text-white text-sm font-bold px-3 py-1 rounded-full whitespace-nowrap"
                     >
-                      <span className="bg-green-500 text-white text-sm font-bold px-3 py-1 rounded-full">
-                        {dato.label}
-                      </span>
+                      {dato.label}
                     </motion.div>
                   )}
                 </AnimatePresence>
+
+                {!isDescubierto && (
+                  <span className="text-xs text-amber-400 font-semibold animate-pulse">
+                    ¡Tócame!
+                  </span>
+                )}
               </motion.button>
             );
           })}
         </div>
       </div>
 
-      {/* Estado de descubrimiento */}
+      {/* Indicadores de progreso */}
       <div className="mt-6 flex justify-center gap-2">
         {datos.map((dato) => (
           <div
@@ -107,20 +107,22 @@ export default function FaseComprender({
         ))}
       </div>
 
-      {/* Mensaje cuando completa */}
-      {todosDescubiertos && (
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="mt-4 text-center"
-        >
-          <p className="text-green-600 font-bold text-lg flex items-center justify-center gap-2">
-            <Sparkles className="w-5 h-5" />
-            ¡Excelente! Ya entendimos el problema
-            <Sparkles className="w-5 h-5" />
-          </p>
-        </motion.div>
-      )}
+      {/* Mensaje de completado */}
+      <AnimatePresence>
+        {todosDescubiertos && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="mt-4 text-center"
+          >
+            <p className="text-green-600 font-bold text-lg flex items-center justify-center gap-2">
+              <Sparkles className="w-5 h-5" />
+              ¡Excelente! Ya entendimos el problema
+              <Sparkles className="w-5 h-5" />
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
