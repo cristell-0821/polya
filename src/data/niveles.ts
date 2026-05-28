@@ -222,225 +222,225 @@ export const niveles: Nivel[] = [
     },
   },
 
-  // ========== NIVEL 6: EL ACUARIO ==========
+  // ========== NIVEL 6: PATRONES / SECUENCIAS ==========
   {
     id: 6,
-    titulo: 'El Acuario Feliz',
-    emoji: '🐠',
-    descripcion: 'Ayuda a separar los peces por colores',
+    titulo: 'El Tren de los Patrones',
+    emoji: '🚂',
+    descripcion: 'Descubre el patrón correcto para completar el tren',
     color: 'from-cyan-400 to-teal-500',
     fases: {
       comprender: {
-        escena: 'Hay peces rojos y azules nadando en el agua',
+        escena: 'El tren sigue una secuencia de colores que se repite',
         datos: [
-          { id: 'rojos', label: '8 peces rojos', emoji: '🔴', descubierto: false, posicion: { x: 25, y: 40 } },
-          { id: 'azules', label: '4 peces azules', emoji: '🔵', descubierto: false, posicion: { x: 75, y: 40 } },
-          { id: 'peceras', label: '2 peceras', emoji: '🫧', descubierto: false, posicion: { x: 50, y: 75 } },
+          { id: 'rojo', label: 'Rojo', emoji: '🟥', descubierto: false, posicion: { x: 25, y: 40 } },
+          { id: 'azul', label: 'Azul', emoji: '🟦', descubierto: false, posicion: { x: 50, y: 40 } },
+          { id: 'repeticion', label: 'Se repite', emoji: '🔁', descubierto: false, posicion: { x: 75, y: 40 } },
         ],
-        dialogoPolya: '¡Los peces necesitan orden! Descubre los datos importantes.',
+        dialogoPolya: 'Observa el tren con cuidado. ¿Qué patrón encuentras?',
       },
       planificar: {
         herramientas: [
-          { id: 'mezclar', nombre: 'Mezclar peces', emoji: '🌪️', esCorrecta: false, pista: 'Eso causaría desorden en las peceras...' },
-          { id: 'clasificar', nombre: 'Separar por colores', emoji: '🎨', esCorrecta: true, pista: '¡Correcto! Así cada pez tendrá su lugar.' },
-          { id: 'ignorar', nombre: 'Ignorar colores', emoji: '❌', esCorrecta: false, pista: 'Los colores sí son importantes aquí.' },
+          { id: 'mirar', nombre: 'Buscar repetición', emoji: '👀', esCorrecta: true, pista: '¡Exacto! Debemos observar qué colores se repiten.' },
+          { id: 'azar', nombre: 'Elegir al azar', emoji: '🎲', esCorrecta: false, pista: 'Elegir al azar puede romper el patrón.' },
+          { id: 'contar', nombre: 'Contar vagones', emoji: '🔢', esCorrecta: false, pista: 'Contar ayuda, pero primero debemos encontrar el patrón.' },
         ],
-        dialogoPolya: '¿Cómo organizaremos a los peces?',
+        dialogoPolya: '¿Qué estrategia nos ayuda a completar la secuencia?',
       },
       ejecutar: {
         tipo: 'agrupar',
-        elementosTotal: 12,
+        elementosTotal: 8,
         grupos: 2,
-        emojiElemento: '🐠',
-        emojiContenedor: '🫧',
-        dialogoPolya: '¡Arrastra los peces a la pecera correcta!',
+        emojiElemento: '🚃',
+        emojiContenedor: '🚂',
+        dialogoPolya: '¡Completa el patrón del tren siguiendo la secuencia correcta!',
       },
       revisar: {
         preguntas: [
-          { texto: '¿Los peces quedaron ordenados?', respuestaCorrecta: true, feedback: '¡Perfecto!' },
-          { texto: '¿Todos los peces están mezclados?', respuestaCorrecta: false, feedback: 'No, ahora están separados por color.' },
-          { texto: '¿Clasificar ayudó?', respuestaCorrecta: true, feedback: '¡Sí! Fue una gran estrategia.' },
+          { texto: '¿El patrón se repite correctamente?', respuestaCorrecta: true, feedback: '¡Muy bien! Seguiste la secuencia perfecta.' },
+          { texto: '¿Algún color rompió el patrón?', respuestaCorrecta: false, feedback: '¡Exacto! Todo sigue el mismo orden.' },
+          { texto: '¿Observar ayudó a resolverlo?', respuestaCorrecta: true, feedback: '¡Claro! Observar patrones es muy importante.' },
         ],
-        dialogoPolya: 'Revisemos si el acuario quedó organizado.',
+        dialogoPolya: 'Revisemos si el tren quedó correcto.',
       },
     },
   },
 
-  // ========== NIVEL 7: EL TREN ==========
+  // ========== NIVEL 7: PESOS / BALANZA ==========
   {
     id: 7,
-    titulo: 'El Tren de los Números',
-    emoji: '🚂',
-    descripcion: 'Completa los vagones con la cantidad correcta',
-    color: 'from-red-400 to-orange-500',
-    fases: {
-      comprender: {
-        escena: 'Cada vagón debe llevar 2 pasajeros',
-        datos: [
-          { id: 'pasajeros', label: '10 pasajeros', emoji: '🧍', descubierto: false, posicion: { x: 30, y: 40 } },
-          { id: 'vagones', label: '5 vagones', emoji: '🚃', descubierto: false, posicion: { x: 70, y: 40 } },
-          { id: 'regla', label: '2 por vagón', emoji: '📋', descubierto: false, posicion: { x: 50, y: 75 } },
-        ],
-        dialogoPolya: '¡Ayuda a organizar a los pasajeros!',
-      },
-      planificar: {
-        herramientas: [
-          { id: 'dividir', nombre: 'Repartir pasajeros', emoji: '➗', esCorrecta: true, pista: '¡Exacto!' },
-          { id: 'apilar', nombre: 'Poner todos juntos', emoji: '📦', esCorrecta: false, pista: 'Eso llenaría demasiado un vagón...' },
-          { id: 'quitar', nombre: 'Quitar pasajeros', emoji: '➖', esCorrecta: false, pista: 'No necesitamos quitar a nadie.' },
-        ],
-        dialogoPolya: '¿Qué haremos para llenar el tren correctamente?',
-      },
-      ejecutar: {
-        tipo: 'repartir',
-        elementosTotal: 10,
-        grupos: 5,
-        emojiElemento: '🧍',
-        emojiContenedor: '🚃',
-        dialogoPolya: '¡Sube los pasajeros al tren!',
-      },
-      revisar: {
-        preguntas: [
-          { texto: '¿Cada vagón tiene 2 pasajeros?', respuestaCorrecta: true, feedback: '¡Excelente!' },
-          { texto: '¿Sobró alguien?', respuestaCorrecta: false, feedback: 'Todos subieron al tren.' },
-          { texto: '¿El tren está equilibrado?', respuestaCorrecta: true, feedback: '¡Sí!' },
-        ],
-        dialogoPolya: 'Verifiquemos que el tren esté listo para salir.',
-      },
-    },
-  },
-
-  // ========== NIVEL 8: EL HUERTO ==========
-  {
-    id: 8,
-    titulo: 'El Huerto Gigante',
-    emoji: '🌱',
-    descripcion: 'Riega las plantas que necesitan agua',
+    titulo: 'La Balanza Misteriosa',
+    emoji: '⚖️',
+    descripcion: 'Encuentra qué objetos pesan más',
     color: 'from-lime-400 to-green-500',
     fases: {
       comprender: {
-        escena: 'Algunas plantas están secas y otras felices',
+        escena: 'Hay frutas y cajas sobre una balanza',
         datos: [
-          { id: 'secas', label: '5 plantas secas', emoji: '🥀', descubierto: false, posicion: { x: 30, y: 40 } },
-          { id: 'agua', label: '5 gotas de agua', emoji: '💧', descubierto: false, posicion: { x: 70, y: 40 } },
-          { id: 'meta', label: 'Salvar las plantas', emoji: '🌻', descubierto: false, posicion: { x: 50, y: 75 } },
+          { id: 'manzana', label: '🍎 pesa 2', emoji: '🍎', descubierto: false, posicion: { x: 25, y: 40 } },
+          { id: 'sandia', label: '🍉 pesa 5', emoji: '🍉', descubierto: false, posicion: { x: 50, y: 40 } },
+          { id: 'meta', label: 'Equilibrar', emoji: '⚖️', descubierto: false, posicion: { x: 75, y: 40 } },
         ],
-        dialogoPolya: '¿Qué necesita el huerto para estar feliz?',
+        dialogoPolya: 'Necesitamos equilibrar la balanza. ¿Qué datos son importantes?',
       },
       planificar: {
         herramientas: [
-          { id: 'regar', nombre: 'Regar plantas secas', emoji: '💧', esCorrecta: true, pista: '¡Muy bien!' },
-          { id: 'esperar', nombre: 'Esperar lluvia', emoji: '☁️', esCorrecta: false, pista: '¡Tomaría demasiado tiempo!' },
-          { id: 'arrancar', nombre: 'Quitar plantas', emoji: '❌', esCorrecta: false, pista: 'No queremos perder plantas.' },
+          { id: 'comparar', nombre: 'Comparar pesos', emoji: '⚖️', esCorrecta: true, pista: '¡Sí! Comparar nos ayuda a equilibrar.' },
+          { id: 'adivinar', nombre: 'Adivinar', emoji: '🎲', esCorrecta: false, pista: 'Adivinar no siempre funciona.' },
+          { id: 'mezclar', nombre: 'Mezclar objetos', emoji: '🔄', esCorrecta: false, pista: 'Primero debemos analizar los pesos.' },
         ],
-        dialogoPolya: '¿Cómo ayudaremos al huerto?',
+        dialogoPolya: '¿Cómo descubriremos qué pesa más?',
       },
       ejecutar: {
         tipo: 'agrupar',
-        elementosTotal: 5,
-        grupos: 1,
-        emojiElemento: '💧',
-        emojiContenedor: '🥀',
-        dialogoPolya: '¡Arrastra agua hacia las plantas secas!',
+        elementosTotal: 7,
+        grupos: 2,
+        emojiElemento: '🍎',
+        emojiContenedor: '⚖️',
+        dialogoPolya: '¡Coloca los objetos para equilibrar la balanza!',
       },
       revisar: {
         preguntas: [
-          { texto: '¿Las plantas están felices?', respuestaCorrecta: true, feedback: '¡Sí!' },
-          { texto: '¿Faltó agua?', respuestaCorrecta: false, feedback: 'Todas recibieron agua.' },
-          { texto: '¿El plan funcionó?', respuestaCorrecta: true, feedback: '¡Excelente trabajo!' },
+          { texto: '¿La balanza quedó equilibrada?', respuestaCorrecta: true, feedback: '¡Perfecto! Los pesos son iguales.' },
+          { texto: '¿Comparar ayudó?', respuestaCorrecta: true, feedback: '¡Exacto! Comparar fue la mejor estrategia.' },
+          { texto: '¿Sobró algún objeto?', respuestaCorrecta: false, feedback: '¡Bien! Todo fue utilizado correctamente.' },
         ],
-        dialogoPolya: '¡Miremos cómo quedó el huerto!',
+        dialogoPolya: 'Comprobemos si todo quedó balanceado.',
       },
     },
   },
 
-  // ========== NIVEL 9: LOS GLOBOS==========
+  // ========== NIVEL 8: LABERINTO ==========
+  {
+    id: 8,
+    titulo: 'El Laberinto del Tesoro',
+    emoji: '🏴‍☠️',
+    descripcion: 'Encuentra el camino correcto hacia el tesoro',
+    color: 'from-yellow-400 to-amber-500',
+    fases: {
+      comprender: {
+        escena: 'Hay varios caminos, algunos llevan a trampas',
+        datos: [
+          { id: 'inicio', label: 'Inicio', emoji: '🚪', descubierto: false, posicion: { x: 20, y: 40 } },
+          { id: 'tesoro', label: 'Tesoro', emoji: '💎', descubierto: false, posicion: { x: 80, y: 40 } },
+          { id: 'trampa', label: 'Trampas', emoji: '🕳️', descubierto: false, posicion: { x: 50, y: 70 } },
+        ],
+        dialogoPolya: 'Debemos encontrar el mejor camino. ¡Analiza el mapa!',
+      },
+      planificar: {
+        herramientas: [
+          { id: 'planear', nombre: 'Buscar ruta segura', emoji: '🗺️', esCorrecta: true, pista: '¡Muy bien! Pensar antes de avanzar evita trampas.' },
+          { id: 'correr', nombre: 'Correr rápido', emoji: '🏃', esCorrecta: false, pista: 'Ir rápido puede llevarte a una trampa.' },
+          { id: 'azar', nombre: 'Elegir cualquier camino', emoji: '🎲', esCorrecta: false, pista: 'Eso sería muy peligroso.' },
+        ],
+        dialogoPolya: '¿Cuál es la mejor estrategia para salir del laberinto?',
+      },
+      ejecutar: {
+        tipo: 'contar',
+        elementosTotal: 10,
+        grupos: 1,
+        emojiElemento: '👣',
+        emojiContenedor: '💎',
+        dialogoPolya: '¡Sigue el camino correcto hasta el tesoro!',
+      },
+      revisar: {
+        preguntas: [
+          { texto: '¿Llegaste al tesoro?', respuestaCorrecta: true, feedback: '¡Sí! Elegiste el camino correcto.' },
+          { texto: '¿Caíste en trampas?', respuestaCorrecta: false, feedback: '¡Perfecto! Evitaste todas las trampas.' },
+          { texto: '¿Planificar ayudó?', respuestaCorrecta: true, feedback: '¡Claro! Pensar antes de actuar es importante.' },
+        ],
+        dialogoPolya: 'Veamos si tomaste buenas decisiones.',
+      },
+    },
+  },
+
+  // ========== NIVEL 9: MEMORIA / ORDEN ==========
   {
     id: 9,
-    titulo: 'La Fiesta de Globos',
-    emoji: '🎈',
-    descripcion: 'Agrupa los globos por color',
-    color: 'from-fuchsia-400 to-pink-500',
+    titulo: 'La Cocina del Chef',
+    emoji: '👨‍🍳',
+    descripcion: 'Ordena correctamente los pasos de una receta',
+    color: 'from-orange-400 to-red-500',
     fases: {
       comprender: {
-        escena: 'Hay globos de muchos colores flotando',
+        escena: 'La receta está desordenada',
         datos: [
-          { id: 'rojos', label: '4 globos rojos', emoji: '🔴', descubierto: false, posicion: { x: 25, y: 40 } },
-          { id: 'azules', label: '4 globos azules', emoji: '🔵', descubierto: false, posicion: { x: 50, y: 40 } },
-          { id: 'verdes', label: '4 globos verdes', emoji: '🟢', descubierto: false, posicion: { x: 75, y: 40 } },
+          { id: 'ingredientes', label: 'Ingredientes', emoji: '🥕', descubierto: false, posicion: { x: 25, y: 40 } },
+          { id: 'horno', label: 'Hornear', emoji: '🔥', descubierto: false, posicion: { x: 50, y: 40 } },
+          { id: 'servir', label: 'Servir', emoji: '🍽️', descubierto: false, posicion: { x: 75, y: 40 } },
         ],
-        dialogoPolya: '¡Ordenemos los globos antes de la fiesta!',
+        dialogoPolya: 'Necesitamos ordenar correctamente la receta.',
       },
       planificar: {
         herramientas: [
-          { id: 'clasificar', nombre: 'Agrupar colores', emoji: '🎨', esCorrecta: true, pista: '¡Correcto!' },
-          { id: 'reventar', nombre: 'Reventar globos', emoji: '💥', esCorrecta: false, pista: '¡Noooo!' },
-          { id: 'mezclar', nombre: 'Mezclar todos', emoji: '🌪️', esCorrecta: false, pista: 'Eso sería desordenado.' },
+          { id: 'orden', nombre: 'Seguir pasos en orden', emoji: '📋', esCorrecta: true, pista: '¡Exacto! Una receta necesita orden.' },
+          { id: 'mezclar', nombre: 'Hacer todo junto', emoji: '🌀', esCorrecta: false, pista: 'Eso sería un desastre.' },
+          { id: 'saltar', nombre: 'Saltar pasos', emoji: '⏭️', esCorrecta: false, pista: 'Cada paso es importante.' },
         ],
-        dialogoPolya: '¿Qué estrategia usaremos?',
+        dialogoPolya: '¿Cómo lograremos cocinar correctamente?',
       },
       ejecutar: {
         tipo: 'agrupar',
-        elementosTotal: 12,
-        grupos: 3,
-        emojiElemento: '🎈',
-        emojiContenedor: '📦',
-        dialogoPolya: '¡Agrupa los globos por colores!',
+        elementosTotal: 4,
+        grupos: 1,
+        emojiElemento: '🍲',
+        emojiContenedor: '👨‍🍳',
+        dialogoPolya: '¡Ordena correctamente la receta!',
       },
       revisar: {
         preguntas: [
-          { texto: '¿Cada color quedó junto?', respuestaCorrecta: true, feedback: '¡Sí!' },
-          { texto: '¿Los globos están desordenados?', respuestaCorrecta: false, feedback: 'No, quedaron muy ordenados.' },
-          { texto: '¿Clasificar ayudó?', respuestaCorrecta: true, feedback: '¡Claro!' },
+          { texto: '¿La receta siguió el orden correcto?', respuestaCorrecta: true, feedback: '¡Excelente trabajo chef!' },
+          { texto: '¿Saltaste pasos?', respuestaCorrecta: false, feedback: 'Muy bien, seguiste todos los pasos.' },
+          { texto: '¿El orden era importante?', respuestaCorrecta: true, feedback: '¡Sí! El orden ayuda a resolver problemas.' },
         ],
-        dialogoPolya: '¡La fiesta ya está lista!',
+        dialogoPolya: 'Probemos si la receta salió deliciosa.',
       },
     },
   },
 
-  // ========== NIVEL 10: LOS ROBOTS ==========
+  // ========== NIVEL 10: RECURSOS / ESTRATEGIA ==========
   {
     id: 10,
-    titulo: 'La Fábrica de Robots',
-    emoji: '🤖',
-    descripcion: 'Carga energía suficiente para todos los robots',
-    color: 'from-slate-400 to-gray-600',
+    titulo: 'La Misión Espacial',
+    emoji: '🚀',
+    descripcion: 'Administra el combustible para llegar al planeta',
+    color: 'from-indigo-500 to-purple-600',
     fases: {
       comprender: {
-        escena: 'Cada robot necesita una batería para funcionar',
+        escena: 'La nave tiene combustible limitado',
         datos: [
-          { id: 'robots', label: '6 robots', emoji: '🤖', descubierto: false, posicion: { x: 30, y: 40 } },
-          { id: 'baterias', label: '6 baterías', emoji: '🔋', descubierto: false, posicion: { x: 70, y: 40 } },
-          { id: 'meta', label: 'Encender todos', emoji: '⚡', descubierto: false, posicion: { x: 50, y: 75 } },
+          { id: 'combustible', label: '20 litros', emoji: '⛽', descubierto: false, posicion: { x: 25, y: 40 } },
+          { id: 'distancia', label: '10 km', emoji: '🪐', descubierto: false, posicion: { x: 50, y: 40 } },
+          { id: 'consumo', label: '2 litros por km', emoji: '📏', descubierto: false, posicion: { x: 75, y: 40 } },
         ],
-        dialogoPolya: '¡Los robots necesitan energía!',
+        dialogoPolya: 'Debemos calcular si alcanzará el combustible.',
       },
       planificar: {
         herramientas: [
-          { id: 'conectar', nombre: 'Dar una batería a cada robot', emoji: '🔌', esCorrecta: true, pista: '¡Muy bien!' },
-          { id: 'guardar', nombre: 'Guardar baterías', emoji: '📦', esCorrecta: false, pista: 'Así los robots no funcionarían.' },
-          { id: 'duplicar', nombre: 'Duplicar robots', emoji: '➕', esCorrecta: false, pista: 'Eso necesitaría más baterías.' },
+          { id: 'calcular', nombre: 'Calcular consumo', emoji: '🧠', esCorrecta: true, pista: '¡Sí! Necesitamos calcular cuánto gastaremos.' },
+          { id: 'acelerar', nombre: 'Ir más rápido', emoji: '💨', esCorrecta: false, pista: 'Ir rápido podría gastar más combustible.' },
+          { id: 'adivinar', nombre: 'Adivinar', emoji: '🎲', esCorrecta: false, pista: 'Necesitamos hacer cálculos reales.' },
         ],
-        dialogoPolya: '¿Cómo encenderemos los robots?',
+        dialogoPolya: '¿Qué plan usaremos para llegar al planeta?',
       },
       ejecutar: {
-        tipo: 'repartir',
-        elementosTotal: 6,
-        grupos: 6,
-        emojiElemento: '🔋',
-        emojiContenedor: '🤖',
-        dialogoPolya: '¡Arrastra una batería a cada robot!',
+        tipo: 'contar',
+        elementosTotal: 10,
+        grupos: 2,
+        emojiElemento: '⛽',
+        emojiContenedor: '🚀',
+        dialogoPolya: '¡Usa correctamente el combustible para completar el viaje!',
       },
       revisar: {
         preguntas: [
-          { texto: '¿Todos los robots tienen energía?', respuestaCorrecta: true, feedback: '¡Sí!' },
-          { texto: '¿Sobró alguna batería?', respuestaCorrecta: false, feedback: 'Usaste todas perfectamente.' },
-          { texto: '¿Cada robot recibió una batería?', respuestaCorrecta: true, feedback: '¡Excelente trabajo!' },
+          { texto: '¿Alcanzó el combustible?', respuestaCorrecta: true, feedback: '¡Sí! 10 × 2 = 20 litros exactos.' },
+          { texto: '¿Sobró combustible?', respuestaCorrecta: false, feedback: 'No sobró nada, fue un cálculo exacto.' },
+          { texto: '¿Planificar ayudó a la misión?', respuestaCorrecta: true, feedback: '¡Claro! Sin plan la misión habría fallado.' },
         ],
-        dialogoPolya: '¡La fábrica funciona perfectamente!',
+        dialogoPolya: 'Comprobemos si la misión espacial fue exitosa.',
       },
     },
-  }
+  },
   
 ];
 
