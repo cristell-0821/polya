@@ -3,10 +3,31 @@
 
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { Play, BookOpen, Trophy } from 'lucide-react';
+import { Play, Trophy, Sparkles } from 'lucide-react';
+import { useProgreso } from '@/hooks/useProgreso';
+import { niveles } from '@/data/niveles';
 
 export default function HomePage() {
   const router = useRouter();
+  const { nivelesCompletados } = useProgreso();
+
+  // Calcular el siguiente nivel a jugar
+  const maxIdCompletado = nivelesCompletados.length > 0 
+    ? Math.max(...nivelesCompletados.map((n) => n.id)) 
+    : 0;
+  
+  const siguienteNivel = maxIdCompletado + 1;
+  const totalNiveles = niveles.length;
+  const todosCompletados = maxIdCompletado >= totalNiveles;
+  const hayProgreso = nivelesCompletados.length > 0;
+
+  const handleEmpezar = () => {
+    if (todosCompletados) {
+      router.push('/progreso');
+    } else {
+      router.push(`/niveles/${siguienteNivel}`);
+    }
+  };
 
   return (
     <main className="min-h-screen flex flex-col items-center justify-center px-4 relative overflow-hidden">
@@ -45,7 +66,7 @@ export default function HomePage() {
         {/* Personaje Pólya */}
         <motion.div
           animate={{ y: [0, -10, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+          transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
           className="text-8xl mb-6 inline-block"
         >
           🦉
@@ -64,16 +85,54 @@ export default function HomePage() {
           tiene una solución si sigues los 4 pasos secretos ✨
         </p>
 
+        {/* Mensaje de progreso */}
+        {hayProgreso && !todosCompletados && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="mb-4 bg-white/80 backdrop-blur-sm rounded-xl px-4 py-2 border border-indigo-200 inline-block"
+          >
+            <p className="text-indigo-600 font-bold text-sm">
+              📍 Te quedaste en el Nivel {siguienteNivel} de {totalNiveles}
+            </p>
+          </motion.div>
+        )}
+
+        {todosCompletados && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="mb-4 bg-amber-100 rounded-xl px-4 py-2 border border-amber-300 inline-block"
+          >
+            <p className="text-amber-700 font-bold text-sm">
+              🏆 ¡Completaste todos los niveles! Eres un maestro de Pólya
+            </p>
+          </motion.div>
+        )}
+
         {/* Botones */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            onClick={() => router.push('/niveles/1')}
+            onClick={handleEmpezar}
             className="flex items-center justify-center gap-3 bg-gradient-to-r from-amber-400 to-orange-500 text-white text-xl font-bold px-8 py-4 rounded-2xl shadow-lg hover:shadow-xl transition-shadow"
           >
             <Play className="w-6 h-6 fill-white" />
-            ¡Empezar Aventura!
+            {todosCompletados 
+              ? 'Ver Mis Logros' 
+              : hayProgreso 
+                ? '¡Continuar Aventura!' 
+                : '¡Empezar Aventura!'}
+          </motion.button>
+
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => router.push('/leaderboard')}
+            className="flex items-center justify-center gap-3 bg-gradient-to-r from-pink-500 to-rose-500 text-white text-xl font-bold px-8 py-4 rounded-2xl shadow-lg hover:shadow-xl transition-shadow"
+          >
+            🏆 Salón de la Fama
           </motion.button>
 
           <motion.button
@@ -83,7 +142,7 @@ export default function HomePage() {
             className="flex items-center justify-center gap-3 bg-white text-indigo-600 text-xl font-bold px-8 py-4 rounded-2xl shadow-lg border-2 border-indigo-100 hover:border-indigo-300 transition-colors"
           >
             <Trophy className="w-6 h-6" />
-            Mi Progreso
+            Mapa de Misiones
           </motion.button>
         </div>
 
