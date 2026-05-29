@@ -26,6 +26,8 @@ export default function FaseComprenderUni({
   const [seleccionados, setSeleccionados] = useState<Set<string>>(new Set());
   const [mostrarEnunciado, setMostrarEnunciado] = useState(true);
   const [finalizado, setFinalizado] = useState(false);
+  const [puntaje, setPuntaje] = useState(0);
+  const [errores, setErrores] = useState(0);
 
   const todosLosItems = useMemo(() => {
     return [...datosRelevantes, ...distractores]
@@ -60,18 +62,20 @@ export default function FaseComprenderUni({
     const distractoresSeleccionados = distractores.filter((d) => seleccionados.has(d.id));
     const relevantesFaltantes = datosRelevantes.filter((d) => !seleccionados.has(d.id));
 
-    const errores =
+    const erroresCount =
       distractoresSeleccionados.length +
       relevantesFaltantes.length;
 
     const penalizacion =
       (distractoresSeleccionados.length * penalizacionDistractor) +
-      (relevantesFaltantes.length * 5);
+      (relevantesFaltantes.length * penalizacionDistractor);
 
-    const puntaje = Math.max(0, 25 - penalizacion);
+    const puntajeFinal = Math.max(0, 25 - penalizacion);
 
+    setPuntaje(puntajeFinal);
+    setErrores(erroresCount);
     setFinalizado(true);
-    onCompletar(puntaje, errores);
+    onCompletar(puntajeFinal, erroresCount);
   };
 
   const todosRelevantesSeleccionados = datosRelevantes.every((d) => seleccionados.has(d.id));
@@ -207,14 +211,25 @@ export default function FaseComprenderUni({
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center"
+          className={`p-4 rounded-xl border-2 text-center ${
+            puntaje >= 20
+              ? 'bg-green-100 border-green-300'
+              : puntaje >= 12
+              ? 'bg-amber-100 border-amber-300'
+              : 'bg-red-100 border-red-300'
+          }`}
         >
-          <p className="text-green-600 font-bold text-lg flex items-center justify-center gap-2">
+          <p className="font-bold text-lg flex items-center justify-center gap-2"
+            style={{ color: puntaje >= 12 ? '#166534' : '#991b1b' }}>
             <Sparkles className="w-5 h-5" />
-            Fase completada
+            {puntaje >= 20 ? '¡Perfecto!' : puntaje >= 12 ? 'Fase completada' : 'Sigue practicando'}
+          </p>
+          <p className="text-sm font-semibold mt-1"
+            style={{ color: puntaje >= 12 ? '#15803d' : '#b91c1c' }}>
+            +{puntaje} puntos | {errores} {errores === 1 ? 'error' : 'errores'}
           </p>
         </motion.div>
-      )}
+            )}
     </div>
   );
 }

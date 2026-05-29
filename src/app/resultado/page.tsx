@@ -118,14 +118,7 @@ function ResultadoContenido() {
             </div>
           )}
 
-          {penalizacionErrores > 0 && (
-            <div className="flex justify-between p-2 bg-red-50 rounded-lg">
-              <span className="text-red-700">Penalización errores</span>
-              <span className="font-bold text-red-700">
-                -{penalizacionErrores}
-              </span>
-            </div>
-          )}
+          {/* ELIMINADO: penalización errores (ya descontada por fase) */}
 
           {penalizacionTiempo > 0 && (
             <div className="flex justify-between p-2 bg-red-50 rounded-lg">
@@ -136,12 +129,14 @@ function ResultadoContenido() {
             </div>
           )}
 
+          {/* NUEVO: línea separadora visual */}
+          <div className="border-t border-gray-200 my-2" />
+
           <div className="flex justify-between p-2 bg-gray-50 rounded-lg">
             <span className="text-gray-600 flex items-center gap-1">
               <Clock className="w-4 h-4" />
               Tiempo usado
             </span>
-
             <span className="font-bold text-gray-700">
               {minutos}:{segundos.toString().padStart(2, '0')}
             </span>
@@ -150,9 +145,8 @@ function ResultadoContenido() {
           <div className="flex justify-between p-2 bg-gray-50 rounded-lg">
             <span className="text-gray-600 flex items-center gap-1">
               <AlertTriangle className="w-4 h-4" />
-              Errores
+              Errores cometidos
             </span>
-
             <span className="font-bold text-gray-700">
               {erroresCometidos}
             </span>

@@ -121,22 +121,24 @@ export default function NivelPage() {
 
     // Calcular resultado final
     const tiempoUsado = nivel.tiempoLimiteSegundos - tiempoRestante;
-    const bonusTiempo = tiempoAgotado ? 0 : Math.max(0, tiempoRestante * 2);
-    const penalizacionTiempo = tiempoAgotado ? 200 : 0;
-    const penalizacionErrores = erroresTotal * 50;
+    const bonusTiempo = tiempoAgotado ? 0 : Math.floor(tiempoRestante / 5);
+    const penalizacionTiempo = tiempoAgotado ? 5 : 0;
+    //const penalizacionErrores = erroresTotal;
 
     const puntajeFinal = Math.max(
       0,
-      puntajeTotal + bonusTiempo - penalizacionTiempo - penalizacionErrores
+      puntajeTotal + bonusTiempo - penalizacionTiempo
     );
 
     const estrellas =
-      puntajeFinal >= 3500 ? 3 : puntajeFinal >= 2500 ? 2 : puntajeFinal >= 1500 ? 1 : 0;
+      puntajeFinal >= 110 ? 3 :
+      puntajeFinal >= 70 ? 2 :
+      puntajeFinal >= 40 ? 1 : 0;
 
     const resultado: ResultadoNivel = {
       puntajeBase: puntajeTotal,
       bonusTiempo,
-      penalizacionErrores,
+      penalizacionErrores: 0,
       penalizacionTiempo,
       streakBonus: 0, // Simplificado
       puntajeFinal,
@@ -190,8 +192,11 @@ export default function NivelPage() {
 
   const avanzarFase = useCallback(
     (puntaje: number, errores: number) => {
-      setPuntajesFase((prev) => ({ ...prev, [faseActual]: puntaje }));
-      setErroresFase((prev) => ({ ...prev, [faseActual]: errores }));
+      const nuevosPuntajes = { ...puntajesFase, [faseActual]: puntaje };
+      const nuevosErrores = { ...erroresFase, [faseActual]: errores };
+
+      setPuntajesFase(nuevosPuntajes);
+      setErroresFase(nuevosErrores);
       setFasesCompletadas((prev) => new Set(prev).add(faseActual));
 
       const nextIndex = faseIndex + 1;
@@ -202,11 +207,12 @@ export default function NivelPage() {
           setFaseActual(FASES_ORDEN[nextIndex]);
         }, 2500);
       } else {
-        const puntajeTotal =
-          Object.values(puntajesFase).reduce((a, b) => a + b, 0) + puntaje;
+        const puntajeTotal = Object.values(nuevosPuntajes).reduce((a, b) => a + b, 0);
+        const erroresTotal = Object.values(nuevosErrores).reduce((a, b) => a + b, 0);
 
-        const erroresTotal =
-          Object.values(erroresFase).reduce((a, b) => a + b, 0) + errores;
+        console.log('🏁 TOTALES - puntaje:', puntajeTotal, 'errores:', erroresTotal);
+        console.log('🏁 Detalle puntajes:', nuevosPuntajes);
+        console.log('🏁 Detalle errores:', nuevosErrores);
 
         finalizarNivel(puntajeTotal, erroresTotal);
       }

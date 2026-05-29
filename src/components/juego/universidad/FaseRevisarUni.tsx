@@ -29,7 +29,7 @@ export default function FaseRevisarUni({
   const [puntaje, setPuntaje] = useState(25);
   const [errores, setErrores] = useState(0);
 
-  const handleEvaluar = (pasoId: string, evaluacion: 'correcto' | 'incorrecto') => {
+ const handleEvaluar = (pasoId: string, evaluacion: 'correcto' | 'incorrecto') => {
     if (finalizado || mostrarFeedback[pasoId]) return;
 
     const paso = pasos.find((p) => p.id === pasoId);
@@ -37,15 +37,6 @@ export default function FaseRevisarUni({
 
     setEvaluaciones((prev) => ({ ...prev, [pasoId]: evaluacion }));
     setMostrarFeedback((prev) => ({ ...prev, [pasoId]: true }));
-
-    // Verificar si la evaluación del alumno coincide con la realidad
-    const evaluacionCorrecta = (evaluacion === 'correcto' && paso.esCorrecto) ||
-                                (evaluacion === 'incorrecto' && !paso.esCorrecto);
-
-    if (!evaluacionCorrecta) {
-      setPuntaje((prev) => Math.max(0, prev - 5));
-      setErrores((prev) => prev + 1);
-    }
 
     // Verificar si todos los pasos han sido evaluados
     const nuevasEvaluaciones = { ...evaluaciones, [pasoId]: evaluacion };
@@ -57,7 +48,7 @@ export default function FaseRevisarUni({
         return (ev === 'correcto' && !p.esCorrecto) || (ev === 'incorrecto' && p.esCorrecto);
       }).length;
 
-      const puntajeFinal = Math.max(0, 25 - erroresTotales * 5);
+      const puntajeFinal = Math.max(0, 25 - erroresTotales * 3);
       setPuntaje(puntajeFinal);
       setErrores(erroresTotales);
       setFinalizado(true);
@@ -172,7 +163,7 @@ export default function FaseRevisarUni({
                   {!evaluacionCorrecta && (
                     <div className="mt-2 p-2 bg-amber-100 rounded-lg text-sm text-amber-700">
                       <AlertCircle className="w-4 h-4 inline mr-1" />
-                      Tu evaluación fue incorrecta. -100 puntos
+                      Tu evaluación fue incorrecta. -3 puntos
                     </div>
                   )}
                 </div>
@@ -189,24 +180,24 @@ export default function FaseRevisarUni({
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             className={`p-6 rounded-2xl border-2 text-center ${
-              puntaje >= 800
+              puntaje >= 20
                 ? 'bg-green-100 border-green-300'
-                : puntaje >= 500
+                : puntaje >= 12
                 ? 'bg-amber-100 border-amber-300'
                 : 'bg-red-100 border-red-300'
             }`}
           >
             <div className="text-4xl mb-2">
-              {puntaje >= 800 ? '🏆' : puntaje >= 500 ? '👍' : '📚'}
+              {puntaje >= 20 ? '🏆' : puntaje >= 12 ? '👍' : '📚'}
             </div>
-            <p className="text-xl font-bold mb-2" style={{ color: puntaje >= 500 ? '#166534' : '#991b1b' }}>
-              {puntaje >= 800
+            <p className="text-xl font-bold mb-2" style={{ color: puntaje >= 12 ? '#166534' : '#991b1b' }}>
+              {puntaje >= 20
                 ? '¡Análisis perfecto!'
-                : puntaje >= 500
+                : puntaje >= 12
                 ? 'Buen análisis, pero hay detalles por mejorar'
                 : 'Necesitas practicar más la revisión crítica'}
             </p>
-            <p className="text-sm font-semibold" style={{ color: puntaje >= 500 ? '#15803d' : '#b91c1c' }}>
+            <p className="text-sm font-semibold" style={{ color: puntaje >= 12 ? '#15803d' : '#b91c1c' }}>
               {puntaje} puntos | {errores} {errores === 1 ? 'error' : 'errores'} de evaluación
             </p>
           </motion.div>
