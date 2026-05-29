@@ -4,8 +4,8 @@ import { persist } from 'zustand/middleware';
 
 interface NivelCompletado {
   id: number;
-  estrellas: number; // 0-3
-  puntajeMaximo: number; // NUEVO: guardar mejor puntaje
+  estrellas: number;
+  puntajeMaximo: number;
   fecha: string;
 }
 
@@ -13,6 +13,7 @@ interface ProgresoState {
   nivelesCompletados: NivelCompletado[];
   completarNivel: (id: number, estrellas: number, puntaje?: number) => void;
   reiniciarProgreso: () => void;
+  verificarYReiniciar: () => void; // 🆕
 }
 
 export const useProgreso = create<ProgresoState>()(
@@ -27,7 +28,6 @@ export const useProgreso = create<ProgresoState>()(
         let nuevosCompletados: NivelCompletado[];
 
         if (existente) {
-          // Solo actualizar si mejora estrellas O puntaje
           if (estrellas > existente.estrellas || puntaje > existente.puntajeMaximo) {
             nuevosCompletados = nivelesCompletados.map((n) =>
               n.id === id
@@ -54,6 +54,27 @@ export const useProgreso = create<ProgresoState>()(
 
       reiniciarProgreso: () => {
         set({ nivelesCompletados: [] });
+      },
+
+      // 🆕 Verificar si hay reinicio y limpiar si es necesario
+      verificarYReiniciar: () => {
+        const reinicioRaw = localStorage.getItem('polya_ultimo_reinicio');
+        const progresoRaw = localStorage.getItem('polya-progreso-uni');
+        
+        if (!reinicioRaw || !progresoRaw) return;
+
+        const ultimoReinicio = parseInt(reinicioRaw);
+        const progreso = JSON.parse(progresoRaw);
+        const ultimaActualizacion = progreso?.state?.nivelesCompletados?.[0]?.fecha 
+          ? new Date(progreso.state.nivelesCompletados[0].fecha).getTime()
+          : 0;
+
+        // Si el progreso es anterior al reinicio, limpiar
+        if (ultimaActualizacion < ultimoReinicio) {
+          console.log('🧹 Progreso anterior al reinicio. Limpiando...');
+          set({ nivelesCompletados: [] });
+          localStorage.removeItem('polya-progreso-uni');
+        }
       },
     }),
     {

@@ -1,9 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { ArrowRight, GraduationCap } from 'lucide-react';
+import { doc, onSnapshot } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
 
 const AVATARES = ['🎓', '🧠', '⚡', '🔬', '📐', '🧮', '💻', '🎯'];
 
@@ -11,6 +13,31 @@ export default function LoginPage() {
   const router = useRouter();
   const [nombre, setNombre] = useState('');
   const [avatar, setAvatar] = useState('🎓');
+
+  // 🆕 Detectar reinicio de competencia
+  useEffect(() => {
+    const unsubscribe = onSnapshot(doc(db, 'config', 'reinicio'), (docSnap) => {
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        const ultimoReinicioLocal = parseInt(localStorage.getItem('polya_ultimo_reinicio') || '0');
+        
+        // Si el reinicio en Firebase es más reciente que el local
+        if (data.timestamp > ultimoReinicioLocal) {
+          console.log('🧹 Detectado reinicio de competencia. Limpiando localStorage...');
+          
+          // Limpiar TODO
+          localStorage.removeItem('polya-progreso-uni');
+          localStorage.removeItem('polya_jugador');
+          localStorage.setItem('polya_ultimo_reinicio', data.timestamp.toString());
+          
+          // Recargar para limpiar estados de Zustand
+          window.location.reload();
+        }
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   const handleEntrar = () => {
     if (!nombre.trim()) return;

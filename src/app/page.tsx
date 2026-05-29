@@ -1,14 +1,42 @@
+// src/app/page.tsx
 'use client';
 
+import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Play, Trophy, BarChart3, GraduationCap } from 'lucide-react';
+import { doc, onSnapshot } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
 import { useProgreso } from '@/hooks/useProgreso';
 import { nivelesUni } from '@/data/niveles-universidad';
 
 export default function HomePage() {
   const router = useRouter();
-  const { nivelesCompletados } = useProgreso();
+  const { nivelesCompletados, reiniciarProgreso } = useProgreso();
+
+  // 🆕 Detectar reinicio de competencia
+  useEffect(() => {
+    const unsubscribe = onSnapshot(doc(db, 'config', 'reinicio'), (docSnap) => {
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        const ultimoReinicioLocal = parseInt(localStorage.getItem('polya_ultimo_reinicio') || '0');
+        
+        if (data.timestamp > ultimoReinicioLocal) {
+          console.log('🧹 Detectado reinicio en Home. Limpiando...');
+          
+          reiniciarProgreso();
+          localStorage.removeItem('polya_jugador');
+          localStorage.setItem('polya_ultimo_reinicio', data.timestamp.toString());
+          
+          // Forzar recarga para limpiar todo
+          window.location.reload();
+        }
+      }
+    });
+
+    return () => unsubscribe();
+  }, [reiniciarProgreso]);
+
 
   const maxIdCompletado = nivelesCompletados.length > 0 
     ? Math.max(...nivelesCompletados.map((n) => n.id)) 
@@ -73,7 +101,7 @@ export default function HomePage() {
             {todosCompletados ? 'Ver Progreso' : hayProgreso ? 'Continuar' : 'Iniciar'}
           </motion.button>
 
-          <motion.button
+          {/* <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => router.push('/leaderboard')}
@@ -81,7 +109,7 @@ export default function HomePage() {
           >
             <Trophy className="w-5 h-5" />
             Ranking
-          </motion.button>
+          </motion.button> */}
 
           <motion.button
             whileHover={{ scale: 1.05 }}
