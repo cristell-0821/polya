@@ -33,7 +33,7 @@ export const nivelesUni: NivelUniversidad[] = [
             nombre: 'Multiplicar precio × cantidad',
             emoji: '✖️',
             esCorrecta: true,
-            pistaCorrecta: '¡Exacto! 12 × 3 = 36. Multiplicación directa.',
+            pistaCorrecta: '¡Exacto! Multiplicación directa.',
             penalizacionError: 0,
           },
           {
@@ -129,7 +129,7 @@ export const nivelesUni: NivelUniversidad[] = [
             nombre: 'Probar combinaciones posibles',
             emoji: '🎯',
             esCorrecta: true,
-            pistaCorrecta: '¡Sí! Solo hay pocas combinaciones: 3+3+2=8, 3+2+2=7. ¡La segunda!',
+            pistaCorrecta: '¡Sí! Solo hay pocas combinaciones: piénsalas...',
             penalizacionError: 0,
           },
           {
@@ -224,7 +224,7 @@ export const nivelesUni: NivelUniversidad[] = [
             nombre: 'Dividir 8 ÷ 3',
             emoji: '➗',
             esCorrecta: true,
-            pistaCorrecta: '¡Exacto! 8 ÷ 3 = 2 con resto 2. Cada uno come 2, sobran 2.',
+            pistaCorrecta: '¡Exacto!',
             penalizacionError: 0,
           },
           {
@@ -319,7 +319,7 @@ export const nivelesUni: NivelUniversidad[] = [
             nombre: 'Multiplicar capacidad, luego restar',
             emoji: '🎯',
             esCorrecta: true,
-            pistaCorrecta: '¡Sí! 2×15 = 30 caben. 45-30 = 15 faltan. Necesitan 1 bus más.',
+            pistaCorrecta: '¡Sí!',
             penalizacionError: 0,
           },
           {
@@ -413,7 +413,7 @@ export const nivelesUni: NivelUniversidad[] = [
             nombre: 'Calcular puntos actuales, luego los que faltan',
             emoji: '🎯',
             esCorrecta: true,
-            pistaCorrecta: '¡Sí! 5×50=250 puntos. 400-250=150 faltan. 150÷50=3 enemigos más.',
+            pistaCorrecta: '¡Sí!',
             penalizacionError: 0,
           },
           {
@@ -509,7 +509,7 @@ export const nivelesUni: NivelUniversidad[] = [
             nombre: 'Sumar uso, luego restar del límite',
             emoji: '🎯',
             esCorrecta: true,
-            pistaCorrecta: '¡Sí! 2.5+3+1.5 = 7 GB usados. 10-7 = 3 GB disponibles.',
+            pistaCorrecta: '¡Sí!',
             penalizacionError: 0,
           },
           {
@@ -605,7 +605,7 @@ export const nivelesUni: NivelUniversidad[] = [
             nombre: 'Probar combinaciones sistemáticamente',
             emoji: '🎯',
             esCorrecta: true,
-            pistaCorrecta: '¡Sí! Prueba: 5 cuadernos + 2 carpetas = 5×8 + 2×5 = 40+10 = S/ 50. ¡Exacto!',
+            pistaCorrecta: '¡Exacto!',
             penalizacionError: 0,
           },
           {
@@ -701,7 +701,7 @@ export const nivelesUni: NivelUniversidad[] = [
             nombre: 'Restar las de fuera, luego dividir',
             emoji: '🎯',
             esCorrecta: true,
-            pistaCorrecta: '¡Sí! 26 - 2 = 24 gallinas para corrales. 24 ÷ 4 = 6 gallinas por corral.',
+            pistaCorrecta: '¡Así es!',
             penalizacionError: 0,
           },
           {
@@ -796,7 +796,7 @@ export const nivelesUni: NivelUniversidad[] = [
             nombre: 'Comparar ganancia por hora',
             emoji: '🎯',
             esCorrecta: true,
-            pistaCorrecta: '¡Sí! Mesa: 150/2 = S/ 75 por hora. Silla: 80/1 = S/ 80 por hora. ¡Las sillas son más rentables! 8 sillas = S/ 640.',
+            pistaCorrecta: '¡Correcto! ',
             penalizacionError: 0,
           },
           {
@@ -892,7 +892,7 @@ export const nivelesUni: NivelUniversidad[] = [
             nombre: 'Probar valores cercanos',
             emoji: '🎯',
             esCorrecta: true,
-            pistaCorrecta: '¡Sí! Si x=20 grandes: 20×30=600, 20×20=400, total=1000. ¡Exacto! 20 grandes + 20 pequeñas = 40 cajas, 1000 kg.',
+            pistaCorrecta: '¡Exacto!',
             penalizacionError: 0,
           },
           {
