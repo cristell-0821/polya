@@ -16,7 +16,8 @@ export interface Jugador {
   id: string;
   nombre: string;
   avatar: string;
-  estrellasTotales: number;
+  puntajeTotal: number;        // ← NUEVO: ranking principal
+  estrellasTotales: number;    // ← sigue guardado pero secundario
   nivelesCompletados: number;
   ultimaActualizacion: any;
 }
@@ -28,7 +29,7 @@ export function useLeaderboard() {
   useEffect(() => {
     const q = query(
       collection(db, 'leaderboard'),
-      orderBy('estrellasTotales', 'desc'),
+      orderBy('puntajeTotal', 'desc'),   // ← CAMBIO: ordenar por puntaje
       limit(20)
     );
 
@@ -45,14 +46,22 @@ export function useLeaderboard() {
   }, []);
 
   const actualizarPuntaje = useCallback(
-    async (jugadorId: string, nombre: string, avatar: string, estrellas: number, niveles: number) => {
+    async (
+      jugadorId: string,
+      nombre: string,
+      avatar: string,
+      estrellas: number,
+      niveles: number,
+      puntaje: number   // ← NUEVO parámetro
+    ) => {
       const ref = doc(db, 'leaderboard', jugadorId);
       await setDoc(
         ref,
         {
           nombre,
           avatar,
-          estrellasTotales: estrellas,
+          puntajeTotal: puntaje,        // ← NUEVO
+          estrellasTotales: estrellas,  // ← sigue guardado
           nivelesCompletados: niveles,
           ultimaActualizacion: serverTimestamp(),
         },

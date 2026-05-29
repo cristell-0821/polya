@@ -1,4 +1,4 @@
-// src/data/niveles.ts
+/* // src/data/niveles.ts
 import { Nivel } from '@/types/juego';
 
 export const niveles: Nivel[] = [
@@ -446,4 +446,4 @@ export const niveles: Nivel[] = [
 
 export function getNivel(id: number): Nivel | undefined {
   return niveles.find((n) => n.id === id);
-}
+} */
