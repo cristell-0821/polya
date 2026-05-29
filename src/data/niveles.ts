@@ -2,7 +2,7 @@
 import { Nivel } from '@/types/juego';
 
 export const niveles: Nivel[] = [
-  // ========== NIVEL 1: REPARTIR ==========
+  // ========== NIVEL 1: REPARTIR ==========KIDS
   {
     id: 1,
     titulo: 'El Cumpleaños Mágico',
