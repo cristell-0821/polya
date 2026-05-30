@@ -154,7 +154,7 @@ function ResultadoContenido() {
         </div>
 
         <div className="flex flex-col gap-3">
-          <motion.button
+          {/* <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => router.push('/leaderboard')}
@@ -162,7 +162,7 @@ function ResultadoContenido() {
           >
             <Trophy className="w-5 h-5" />
             Ver Salón de la Fama
-          </motion.button>
+          </motion.button> */}
 
           <motion.button
             whileHover={{ scale: 1.05 }}
