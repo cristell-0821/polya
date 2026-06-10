@@ -28,7 +28,7 @@ export default function RootLayout({
             {children}
           </main>
 
-          <footer className="absolute bottom-4 left-0 right-0">
+          <footer className="py-4">
             <p className="flex items-center justify-center gap-1 text-xs text-slate-500">
               Desarrollado por
 
