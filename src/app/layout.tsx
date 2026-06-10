@@ -22,9 +22,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es">
-      <body
-        className={`${nunito.variable} font-sans min-h-screen bg-gradient-to-br from-sky-100 via-purple-50 to-amber-50`}
-      >
+      <body className={`${nunito.variable} font-sans min-h-screen bg-slate-900`}>
         <div className="min-h-screen flex flex-col">
           <main className="flex-1">
             {children}
